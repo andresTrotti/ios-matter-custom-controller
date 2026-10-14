@@ -19,6 +19,11 @@ class ContentViewState {
     var nodeID: UInt64? = nil
     let logger: Logger = Logger(subsystem: "com.andresing626.ios-matter-controller", category: "main")
     
+    // MARK: - Added UI State Variables
+    var occupancyValue: String = "--"
+    var temperatureValue: String = "-- °C"
+    var humidityValue: String = "-- %"
+    
     static let shared = ContentViewState()
     
     private var cachedController: MTRDeviceController?
@@ -150,7 +155,8 @@ class ContentViewState {
                 if let readError = readError {
                     print("⚠️ Falló lectura de Ocupación: \(readError.localizedDescription)")
                 } else if let occValue = value {
-                    print("🚶‍♂️ ¡Ocupación leída!: \(occValue) (1=Detectado, 0=Libre)")
+                    print("🚶‍♂️ ¡Ocupación leída!: \(occValue) (1=Working, 0=free)")
+                    self.occupancyValue = occValue.intValue == 1 ? "Working" : "Not working"
                 }
                 readGroup.leave()
             }
@@ -162,7 +168,9 @@ class ContentViewState {
                 if let readError = readError {
                     print("⚠️ Falló lectura de Temperatura: \(readError.localizedDescription)")
                 } else if let tempValue = value {
-                    print("🌡️ ¡Temperatura leída!: \(tempValue) (\(Double(truncating: tempValue) / 100.0) °C)")
+                    let calcTemp = Double(truncating: tempValue) / 100.0
+                    print("🌡️ ¡Temperatura leída!: \(tempValue) (\(calcTemp) °C)")
+                    self.temperatureValue = String(format: "%.2f °C", calcTemp)
                 }
                 readGroup.leave()
             }
@@ -174,7 +182,9 @@ class ContentViewState {
                 if let readError = readError {
                     print("⚠️ Falló lectura de Humedad: \(readError.localizedDescription)")
                 } else if let humValue = value {
-                    print("💧 ¡Humedad leída!: \(humValue) (\(Double(truncating: humValue) / 100.0) %)")
+                    let calcHum = Double(truncating: humValue) / 100.0
+                    print("💧 ¡Humedad leída!: \(humValue) (\(calcHum) %)")
+                    self.humidityValue = String(format: "%.1f %%", calcHum)
                 }
                 readGroup.leave()
             }
@@ -189,43 +199,198 @@ class ContentViewState {
     }
 }
 
+// MARK: - Reusable Card Component
+struct SensorCard: View {
+    var icon: String
+    var iconColor: Color
+    var value: String
+    var label: String
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Circle()
+                .fill(iconColor.opacity(0.15))
+                .frame(width: 48, height: 48)
+                .overlay(
+                    Image(systemName: icon)
+                        .foregroundColor(iconColor)
+                        .font(.system(size: 20, weight: .medium))
+                )
+            
+            Spacer()
+            
+            VStack(alignment: .trailing, spacing: 4) {
+                Text(value)
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.primary)
+                Text(label)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .padding(20)
+        .frame(height: 160)
+        .background(Color.white)
+        .cornerRadius(24)
+        .shadow(color: Color.black.opacity(0.04), radius: 10, x: 0, y: 5)
+    }
+}
+
+// MARK: - Main Content View
 struct ContentView: View {
     
     @State private var state = ContentViewState()
     
+    // Theme Colors based on screenshot
+    let bgColor = Color(red: 0.95, green: 0.96, blue: 0.98)
+    let brandGreen = Color(red: 0.11, green: 0.72, blue: 0.54)
+    let darkGreenGradient = LinearGradient(
+        gradient: Gradient(colors: [Color(red: 0.08, green: 0.52, blue: 0.35), Color(red: 0.12, green: 0.65, blue: 0.46)]),
+        startPoint: .leading, endPoint: .trailing
+    )
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Hello, world!")
-                .padding()
+        ZStack {
+            bgColor.edgesIgnoringSafeArea(.all)
             
-            Button(action: {
-                print("reading sensors...")
-                state.readSensors()
-            }, label: {
-                Text("Read sensor values")
-                    .padding()
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(8)
-            })
-            
-            if state.controllerCreated {
-                Button(action: {
-                    // Logic for Commissioning explicitly if needed
-                }, label: {
-                    Text("Commissioning")
-                })
+            VStack(spacing: 24) {
+                // Header
+                HStack {
+                    Text("Krasamo: Custom matter controller")
+                        .font(.system(size: 32, weight: .heavy, design: .rounded))
+                        .foregroundColor(.black)
+                    Spacer()
+                    Button(action: {
+                        // Using the menu to trigger pairing instead of a generic list
+                        Task { await state.startMatterParing() }
+                    }) {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(.black)
+                            .padding(14)
+                            .background(Color.white)
+                            .cornerRadius(14)
+                            .shadow(color: Color.black.opacity(0.03), radius: 5)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 10)
+                
+                // Top Banner
+                HStack {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Sensor Status")
+                            .font(.system(size: 22, weight: .bold, design: .serif))
+                            .foregroundColor(.white)
+                        Text("Keep track of your environment\nreadings seamlessly.")
+                            .font(.system(size: 14))
+                            .foregroundColor(.white.opacity(0.85))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer()
+                    Button(action: {
+                        state.readSensors()
+                    }) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                            .foregroundColor(.white)
+                            .padding(14)
+                            .background(Color.white.opacity(0.2))
+                            .clipShape(Circle())
+                    }
+                }
+                .padding(24)
+                .background(
+                    RoundedRectangle(cornerRadius: 24)
+                        .fill(darkGreenGradient)
+                )
+                .padding(.horizontal, 24)
+                
+                // Category Tabs
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        Button(action: {
+                            // Empty action for UI placeholder
+                        }) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.gray)
+                                .padding(16)
+                                .background(Color.white)
+                                .cornerRadius(16)
+                                .shadow(color: Color.black.opacity(0.02), radius: 5)
+                        }
+                        
+                        Text("Living room")
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 16)
+                            .background(brandGreen)
+                            .cornerRadius(16)
+                        
+                        Text("Bedroom")
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundColor(.black.opacity(0.7))
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 16)
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.black.opacity(0.02), radius: 5)
+                    }
+                    .padding(.horizontal, 24)
+                }
+                
+                // Selection Bar Placeholder
+                HStack {
+                    Text("Multisensor")
+                        .font(.system(size: 16, weight: .bold))
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.gray)
+                        .padding(.trailing, 16)
+                    Button(action: {}) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.gray)
+                            .padding(12)
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(color: Color.black.opacity(0.02), radius: 5)
+                    }
+                }
+                .padding(.horizontal, 24)
+                
+                // Sensor Grid
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                    SensorCard(icon: "thermometer", iconColor: Color.pink, value: state.temperatureValue, label: "Temperature")
+                    SensorCard(icon: "drop.fill", iconColor: Color.blue, value: state.humidityValue, label: "Moisture")
+                    SensorCard(icon: "person.fill", iconColor: Color.orange, value: state.occupancyValue, label: "Occupancy")
+                    SensorCard(icon: "network", iconColor: brandGreen, value: state.deviceAvailable ? "Online" : "Ready", label: "Status")
+                }
+                .padding(.horizontal, 24)
+                
+                Spacer()
             }
             
-            Button(action: {
-                Task {
-                    await state.startMatterParing()
+            // Floating Action Button
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        Task { await state.startMatterParing() }
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 24, weight: .medium))
+                            .foregroundColor(.white)
+                            .frame(width: 64, height: 64)
+                            .background(brandGreen)
+                            .clipShape(Circle())
+                            .shadow(color: brandGreen.opacity(0.4), radius: 15, x: 0, y: 8)
+                    }
+                    .padding(.trailing, 24)
+                    .padding(.bottom, 30)
                 }
-            }, label: {
-                Text("Start pairing")
-                    .padding()
-                    .background(Color.green.opacity(0.1))
-                    .cornerRadius(8)
-            })
+            }
         }
     }
 }
