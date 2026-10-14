@@ -2,11 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.apple.developer.matter.allow-setup-payload</key>
+	<key>Matter Allow Setup Payload</key>
 	<true/>
-	<key>com.apple.security.application-groups</key>
+	<key>App Groups</key>
 	<array>
 		<string>group.andresing626.ios-matter-controller</string>
 	</array>
+    <key>keychain-access-groups</key>
+    <array>
+        <string>$(AppIdentifierPrefix)group.andresing626.ios-matter-controller-keySharing</string>
+    </array>
 </dict>
 </plist>

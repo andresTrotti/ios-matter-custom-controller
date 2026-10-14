@@ -1,0 +1,11 @@
+---
+workspace_name: "matter_wifi_soc_multi_sensor_app_freertos_solution"
+label: "Matter WiFi - SoC Multi Sensor FreeRTOS"
+quality: "production"
+package: "matter"
+description: "Demonstrates a sample implementation of a Matter over Wi-Fi multi-sensor\
+  \ app"
+project:
+- id: "application"
+  path: "matter_wifi_soc_multi_sensor_app_demo_krasamo/matter_wifi_soc_multi_sensor_app_demo_krasamo.slcp"
+  output: "matter_wifi_soc_multi_sensor_app_demo_krasamo"

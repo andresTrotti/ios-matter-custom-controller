@@ -1,56 +1,41 @@
-//
-//  MyRootKeypair.swift
-//  ios-matter-controller
-//
-//  Created by Andres Trotti on 10/8/26.
-//
-
 import Security
 import Matter
 import CryptoKit
+import Foundation
 
 class MyRootKeypair: NSObject, MTRKeypair {
     
     private let privateKey: SecKey
-    
+    private let defaults = UserDefaults(suiteName: "group.andresing626.ios-matter-controller")!
+
     override init() {
-        // Updated tag to version 2 to abandon the old cached key without usage flags
-        let tag = "com.andresing626.matter.rootkey.v3".data(using: .utf8)! as CFData
+        let keyName = "matter.rootkey.raw"
+        var rawKeyData: Data
         
-        // Try to load an existing key first.
-        // 2. Add kSecAttrKeyClassPrivate to the lookup query
-                let query: [String: Any] = [
-                    kSecClass as String: kSecClassKey,
-                    kSecAttrApplicationTag as String: tag,
-                    kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-                    kSecAttrKeyClass as String: kSecAttrKeyClassPrivate, // <-- THIS IS THE CRITICAL LINE
-                    kSecReturnRef as String: true,
-                ]
-        var item: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
-        if status == errSecSuccess {
-            privateKey = item as! SecKey
-        }  else {
-            
-            var error: Unmanaged<CFError>?
-            
-        
-            let attributes: [String: Any] = [
-                kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
-                kSecAttrKeySizeInBits as String: 256,
-                kSecPrivateKeyAttrs as String: [
-                    kSecAttrIsPermanent as String: true,
-                    kSecAttrApplicationTag as String: tag
-                ]
-            ]
-            
-            guard let newKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
-                fatalError("Key generation failed: \(error!.takeRetainedValue())")
+        // 1. Load from App Group or generate new raw bytes
+        if let savedKey = defaults.data(forKey: keyName) {
+                print("✅ MyRootKeypair: Successfully loaded existing root key from App Group!")
+                rawKeyData = savedKey
+            } else {
+                print("⚠️ MyRootKeypair: No existing root key found in App Group. Generating a new one...")
+                let newKey = P256.Signing.PrivateKey()
+                rawKeyData = newKey.x963Representation
+                defaults.set(rawKeyData, forKey: keyName)
             }
-            privateKey = newKey
+        
+        // 2. Convert raw data into an IN-MEMORY SecKey (Bypasses Keychain entirely)
+        let attributes: [String: Any] = [
+            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+            kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
+            kSecAttrKeySizeInBits as String: 256
+        ]
+        
+        var error: Unmanaged<CFError>?
+        guard let secKey = SecKeyCreateWithData(rawKeyData as CFData, attributes as CFDictionary, &error) else {
+            fatalError("Failed to create in-memory SecKey: \(error!.takeRetainedValue())")
         }
         
+        self.privateKey = secKey
         super.init()
     }
     
@@ -59,8 +44,6 @@ class MyRootKeypair: NSObject, MTRKeypair {
     func copyPublicKey() -> SecKey {
         return SecKeyCopyPublicKey(privateKey)!
     }
-    
-   
 
     func signMessageECDSA_RAW(_ message: Data) -> Data {
         var error: Unmanaged<CFError>?

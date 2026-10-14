@@ -1,0 +1,421 @@
+/* See Project CHIP LICENSE file for licensing information. */
+#include <platform/silabs/Logging.h>
+
+#include <platform/logging/LogV.h>
+#include <platform/silabs/Logging.h>
+
+#include <lib/core/CHIPConfig.h>
+#include <platform/CHIPDeviceConfig.h>
+
+#include <lib/support/SafeString.h>
+#include <lib/support/logging/CHIPLogging.h>
+#include <system/SystemClock.h>
+
+// Quick fix for SLCP projects in which
+// we combine generic OT components with Matter
+// Set this define to 0 in your .slcp to prevent double definition of otPlatLog
+#ifndef SL_MATTER_FORWARD_OT_LOGS
+#define SL_MATTER_FORWARD_OT_LOGS 1
+#endif
+
+#if CHIP_DEVICE_CONFIG_ENABLE_THREAD && SL_MATTER_FORWARD_OT_LOGS
+#include <openthread/platform/logging.h>
+#endif
+
+#include <cinttypes>
+#include <stdio.h>
+#include <string.h>
+
+#ifdef PW_RPC_ENABLED
+#include "PigweedLogger.h"
+#endif
+
+// RTT Buffer size and name
+#ifndef LOG_RTT_BUFFER_INDEX
+#define LOG_RTT_BUFFER_INDEX 0
+#endif
+
+/**
+ * @def LOG_RTT_BUFFER_NAME
+ *
+ * RTT's name. Only used if LOG_RTT_BUFFER_INDEX is not 0. Otherwise,
+ * the buffer name is fixed to "Terminal".
+ *
+ */
+#ifndef LOG_RTT_BUFFER_NAME
+#define LOG_RTT_BUFFER_NAME "Terminal"
+#endif
+
+/**
+ * @def LOG_RTT_BUFFER_SIZE
+ *
+ * LOG RTT's buffer size. Only used if LOG_RTT_BUFFER_INDEX is not 0. To
+ * configure buffer #0 size, check the BUFFER_SIZE_UP definition in
+ * SEGGER_RTT_Conf.h
+ *
+ */
+#ifndef LOG_RTT_BUFFER_SIZE
+#define LOG_RTT_BUFFER_SIZE 256
+#endif
+
+#if SILABS_LOG_OUT_UART
+#include "uart.h"
+#endif
+
+// SEGGER_RTT includes
+#if !SILABS_LOG_OUT_UART
+#include "SEGGER_RTT.h"
+#include "SEGGER_RTT_Conf.h"
+#endif
+
+using namespace chip::Logging::Platform;
+
+#if SILABS_LOG_ENABLED
+static bool sLogInitialized = false;
+#endif
+#if LOG_RTT_BUFFER_INDEX != 0
+static uint8_t sLogBuffer[LOG_RTT_BUFFER_SIZE];
+static uint8_t sCmdLineBuffer[LOG_RTT_BUFFER_SIZE];
+#endif
+
+#if SILABS_LOG_ENABLED
+
+using namespace chip;
+
+// Forward declaration
+#if !SILABS_LOG_OUT_UART
+static void PrintLog(const char * msg);
+#endif // !SILABS_LOG_OUT_UART
+
+namespace chip {
+namespace DeviceLayer {
+
+/**
+ * Called whenever a log message is emitted by Chip or LwIP.
+ *
+ * This function is intended be overridden by the application to, e.g.,
+ * schedule output of queued log entries.
+ */
+void __attribute__((weak)) OnLogOutput(void) {}
+
+} // namespace DeviceLayer
+} // namespace chip
+
+namespace chip {
+namespace Logging {
+namespace Platform {
+
+size_t AddTimeStampAndPrefixStr(char * logBuffer, const char * prefix, size_t maxSize)
+{
+    VerifyOrDie(logBuffer != nullptr);
+    VerifyOrDie(prefix != nullptr);
+    VerifyOrDie(maxSize > kTimeStampStringSize + strlen(prefix)); // Greater than to at least accommodate a ending Null Character
+
+    // Derive the hours, minutes, seconds and milliseconds since boot time millisecond counter
+    uint64_t bootTime   = chip::System::SystemClock().GetMonotonicMilliseconds64().count();
+    size_t timestampLen = FormatTimestamp(logBuffer, maxSize, bootTime);
+    if (timestampLen >= maxSize)
+    {
+        return 0; // Likely a snprintf error
+    }
+    int chWritten = snprintf(logBuffer + timestampLen, maxSize - timestampLen, "%s", prefix);
+    return (chWritten > 0) ? static_cast<size_t>(chWritten) + timestampLen : timestampLen;
+}
+size_t FormatTimestamp(char * buffer, size_t maxSize, uint64_t timestampMillis)
+{
+    VerifyOrDie(buffer != nullptr);
+    VerifyOrDie(maxSize >= kTimeStampStringSize); // Greater than to at least accommodate a ending Null Character
+
+    // Derive the hours, minutes, seconds and milliseconds since boot time millisecond counter
+    uint16_t milliseconds = timestampMillis % 1000;
+    uint32_t totalSeconds = static_cast<uint32_t>(timestampMillis / 1000);
+    uint8_t seconds       = totalSeconds % 60;
+    totalSeconds /= 60;
+    uint8_t minutes = totalSeconds % 60;
+    uint32_t hours  = totalSeconds / 60;
+
+    int chWritten = snprintf(buffer, maxSize, "[%04" PRIu32 ":%02u:%02u.%03u]", hours, minutes, seconds, milliseconds);
+    return (chWritten > 0) ? static_cast<size_t>(chWritten) : 0;
+}
+
+void HandleLog(const char * module, LogCategory category, const char * aFormat, va_list v)
+{
+    char formattedMsg[CHIP_CONFIG_LOG_MESSAGE_MAX_SIZE];
+
+    static_assert(sizeof(formattedMsg) >
+                  kTimeStampStringSize + kMaxCategoryStrLen); // Greater than to at least accommodate a ending Null Character
+
+    size_t prefixLen = 0;
+#if !SILABS_LOG_OUT_UART
+    prefixLen += chip::Logging::Platform::AddTimeStampAndPrefixStr(
+        formattedMsg, reinterpret_cast<const char *>(GetCategoryString(category)), CHIP_CONFIG_LOG_MESSAGE_MAX_SIZE);
+#endif // SILABS_LOG_OUT_UART
+
+    size_t moduleLen = strlen(module);
+    if (moduleLen > 0)
+    {
+        // Prepend module name if available
+        int moduleNameLen = snprintf(formattedMsg + prefixLen, sizeof(formattedMsg) - prefixLen, "[%s] ", module);
+        if (moduleNameLen > 0)
+        {
+            prefixLen += static_cast<size_t>(moduleNameLen);
+        }
+    }
+
+    if (prefixLen >= sizeof formattedMsg)
+    {
+        prefixLen = sizeof formattedMsg - 1; // prevent overflow
+    }
+
+#if !defined(__clang__)
+    size_t len = vsnprintf(formattedMsg + prefixLen, sizeof formattedMsg - prefixLen, aFormat, v);
+#else
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+    size_t len = vsnprintf(formattedMsg + prefixLen, sizeof formattedMsg - prefixLen, aFormat, v);
+#pragma clang diagnostic pop
+#endif
+
+    if (len >= sizeof formattedMsg - prefixLen)
+    {
+        formattedMsg[sizeof formattedMsg - 1] = '\0';
+    }
+
+#if SILABS_LOG_OUT_UART
+    // Silabs UART Log trunc
+    uint8_t messageLen = len + prefixLen > 255 ? 255 : static_cast<uint8_t>(len + prefixLen);
+    uartLogWrite(formattedMsg, messageLen, category, chip::System::SystemClock().GetMonotonicMilliseconds64().count());
+#else
+    PrintLog(formattedMsg);
+#endif // SILABS_LOG_OUT_UART
+
+    // Let the application know that a log message has been emitted.
+    chip::DeviceLayer::OnLogOutput();
+}
+
+} // namespace Platform
+} // namespace Logging
+} // namespace chip
+
+#if !SILABS_LOG_OUT_UART
+/**
+ * Print a log message
+ */
+static void PrintLog(const char * msg)
+{
+    if (sLogInitialized)
+    {
+        size_t sz;
+        sz                   = strlen(msg);
+        const char * newline = "\r\n";
+#if defined(PW_RPC_ENABLED) && PW_RPC_ENABLED
+        PigweedLogger::putString(msg, sz);
+        PigweedLogger::putString(newline, 2);
+#else
+        SEGGER_RTT_WriteNoLock(LOG_RTT_BUFFER_INDEX, msg, sz);
+        SEGGER_RTT_WriteNoLock(LOG_RTT_BUFFER_INDEX, newline, 2);
+#endif // PW_RPC_ENABLED
+    }
+}
+#endif // !SILABS_LOG_OUT_UART
+#endif // SILABS_LOG_ENABLED
+
+/**
+ * Initialize logging
+ */
+extern "C" void silabsInitLog(void)
+{
+#if SILABS_LOG_ENABLED
+#if !SILABS_LOG_OUT_UART
+#if LOG_RTT_BUFFER_INDEX != 0
+    SEGGER_RTT_ConfigUpBuffer(LOG_RTT_BUFFER_INDEX, LOG_RTT_BUFFER_NAME, sLogBuffer, LOG_RTT_BUFFER_SIZE,
+                              SEGGER_RTT_MODE_NO_BLOCK_TRIM);
+
+    SEGGER_RTT_ConfigDownBuffer(LOG_RTT_BUFFER_INDEX, LOG_RTT_BUFFER_NAME, sCmdLineBuffer, LOG_RTT_BUFFER_SIZE,
+                                SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+#else
+    SEGGER_RTT_SetFlagsUpBuffer(LOG_RTT_BUFFER_INDEX, SEGGER_RTT_MODE_NO_BLOCK_TRIM);
+#endif
+#endif // !SILABS_LOG_OUT_UART
+
+#ifdef PW_RPC_ENABLED
+    PigweedLogger::init();
+#endif
+    sLogInitialized = true;
+#endif // SILABS_LOG_ENABLED
+}
+
+/**
+ * General-purpose logging function
+ */
+extern "C" void silabsLog(const char * aFormat, ...)
+{
+    va_list v;
+
+    va_start(v, aFormat);
+#if SILABS_LOG_ENABLED
+    chip::Logging::Platform::HandleLog(reinterpret_cast<const char *>(kLogNone), kLog_Silabs, aFormat, v);
+#endif // SILABS_LOG_ENABLED
+
+    va_end(v);
+}
+
+#if SILABS_LOG_ENABLED
+bool isLogInitialized()
+{
+    return sLogInitialized;
+}
+#endif // SILABS_LOG_ENABLED
+
+namespace chip {
+namespace Logging {
+namespace Platform {
+
+/**
+ * CHIP log output functions.
+ */
+void LogV(const char * module, uint8_t category, const char * aFormat, va_list v)
+{
+#if SILABS_LOG_ENABLED && _CHIP_USE_LOGGING
+    if (IsCategoryEnabled(category))
+    {
+        LogCategory categoryEnum = kLog_None;
+
+        switch (category)
+        {
+        case kLogCategory_Error:
+            categoryEnum = kLog_Error;
+            break;
+        case kLogCategory_Detail:
+            categoryEnum = kLog_Detail;
+            break;
+        case kLogCategory_Progress:
+        default:
+            categoryEnum = kLog_Progress;
+            break;
+        }
+        chip::Logging::Platform::HandleLog(module, categoryEnum, aFormat, v);
+    }
+
+    // Let the application know that a log message has been emitted.
+    chip::DeviceLayer::OnLogOutput();
+#endif // SILABS_LOG_ENABLED && _CHIP_USE_LOGGING
+}
+
+} // namespace Platform
+} // namespace Logging
+} // namespace chip
+
+#if CHIP_SYSTEM_CONFIG_USE_LWIP
+
+/**
+ * LwIP log output function.
+ */
+extern "C" void LwIPLog(const char * aFormat, ...)
+{
+    va_list v;
+    va_start(v, aFormat);
+#if SILABS_LOG_ENABLED
+    chip::Logging::Platform::HandleLog(reinterpret_cast<const char *>(kLogLwip), kLog_Lwip, aFormat, v);
+    chip::DeviceLayer::OnLogOutput();
+#endif // SILABS_LOG_ENABLED
+    va_end(v);
+}
+#endif // CHIP_SYSTEM_CONFIG_USE_LWIP
+
+#if defined(SL_COMPONENT_CATALOG_PRESENT) &&                                                                                       \
+    (defined(SL_CATALOG_ZIGBEE_ZCL_CLI_PRESENT) || defined(SL_CATALOG_ZIGBEE_DEBUG_PRINT_PRESENT))
+#include "zcl-debug-print.h"
+#if defined(ENABLE_CHIP_SHELL) && ENABLE_CHIP_SHELL
+#include "uart.h"
+#endif // defined(ENABLE_CHIP_SHELL) && ENABLE_CHIP_SHELL
+extern "C" void sli_zigbee_af_print_internal_var_arg(uint16_t area, uint32_t log_level, bool newLine, const char * formatString,
+                                                     va_list ap)
+{
+#if SILABS_LOG_ENABLED
+    if (area == SL_ZIGBEE_AF_PRINT_CORE || area == 0x00)
+    {
+        LogCategory category = kLog_Silabs;
+        switch (log_level)
+        {
+        case SLI_ZIGBEE_AF_PRINT_LOG_LEVEL_CRASH:
+        case SLI_ZIGBEE_AF_PRINT_LOG_LEVEL_ERROR:
+            category = kLog_Error;
+            break;
+        case SLI_ZIGBEE_AF_PRINT_LOG_LEVEL_WARN:
+            category = kLog_Warning;
+            break;
+        case SLI_ZIGBEE_AF_PRINT_LOG_LEVEL_INFO:
+            category = kLog_Progress;
+            break;
+        case SLI_ZIGBEE_AF_PRINT_LOG_LEVEL_DEBUG:
+        case SLI_ZIGBEE_AF_PRINT_LOG_LEVEL_NONE:
+        default:
+            category = kLog_Detail;
+            break;
+        }
+        // For core logs, we want to route them through the CHIP logging system so that they are timestamped and categorized
+        // appropriately.
+        chip::Logging::Platform::HandleLog(reinterpret_cast<const char *>(kLogZigbeeModule), category, formatString, ap);
+    }
+#endif
+#if defined(ENABLE_CHIP_SHELL) && ENABLE_CHIP_SHELL
+    if (area == SL_ZIGBEE_AF_PRINT_CLI)
+    {
+
+        char buffer[CHIP_CONFIG_LOG_MESSAGE_MAX_SIZE];
+        int chWritten = vsnprintf(buffer, sizeof(buffer), formatString, ap);
+        if (chWritten < 0)
+        {
+            uartConsoleWrite("ZB CLI response too large", sizeof("ZB CLI response too large"));
+        }
+        else
+        {
+            uartConsoleWrite(const_cast<char *>(buffer), chWritten);
+        }
+    }
+#endif
+}
+#endif // defined(SL_COMPONENT_CATALOG_PRESENT) && (defined(SL_CATALOG_ZIGBEE_ZCL_CLI_PRESENT) ||
+       // defined(SL_CATALOG_ZIGBEE_DEBUG_PRINT_PRESENT))
+
+/**
+ * Platform logging function for OpenThread
+ */
+#if CHIP_DEVICE_CONFIG_ENABLE_THREAD && SL_MATTER_FORWARD_OT_LOGS
+extern "C" void otPlatLog(otLogLevel aLogLevel, otLogRegion aLogRegion, const char * aFormat, ...)
+{
+    (void) aLogRegion;
+    va_list v;
+
+    va_start(v, aFormat);
+#if SILABS_LOG_ENABLED
+    LogCategory category = kLog_Silabs;
+    if (sLogInitialized)
+    {
+        switch (aLogLevel)
+        {
+        case OT_LOG_LEVEL_CRIT:
+            category = kLog_Error;
+            break;
+        case OT_LOG_LEVEL_WARN:
+            category = kLog_Warning;
+            break;
+        case OT_LOG_LEVEL_NOTE:
+        case OT_LOG_LEVEL_INFO:
+            category = kLog_Progress;
+            break;
+        case OT_LOG_LEVEL_DEBG:
+        default:
+            category = kLog_Detail;
+            break;
+        }
+        chip::Logging::Platform::HandleLog(reinterpret_cast<const char *>(kOTModule), category, aFormat, v);
+    }
+
+    // Let the application know that a log message has been emitted.
+    chip::DeviceLayer::OnLogOutput();
+#endif // SILABS_LOG_ENABLED
+    va_end(v);
+}
+#endif // CHIP_DEVICE_CONFIG_ENABLE_THREAD && SL_MATTER_FORWARD_OT_LOGS

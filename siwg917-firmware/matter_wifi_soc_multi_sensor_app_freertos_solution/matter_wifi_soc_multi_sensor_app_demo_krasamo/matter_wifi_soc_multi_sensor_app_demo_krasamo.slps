@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
+  <descriptors name="matter_wifi_soc_multi_sensor_app_demo_krasamo">
+    <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.simplicity_sdk:2026.6.1._-8537681622374425997"/>
+    <properties key="universalConfig.relativeWorkspacePath" value="../../matter_wifi_soc_multi_sensor_app_freertos_solution.slcw"/>
+    <properties key="universalConfig.generationDirectory" value="../../../../../../../../../../../SimplicityStudio/v6_workspace/matter_wifi_soc_multi_sensor_app_freertos_solution/matter_wifi_soc_multi_sensor_app_demo_krasamo"/>
+    <properties key="universalConfig.toolchainCompatibility" value="iar llvm gcc"/>
+    <properties key="projectCommon.overwriteCopiedSources" value="false"/>
+    <properties key="projectCommon.boardIds" value="brd2605a:0.0.0.A02"/>
+    <properties key="projectCommon.kitId" value=""/>
+    <properties key="projectCommon.partId" value="mcu.arm.wfm.siwg917m111mgtba"/>
+    <properties key="universalConfig.projectTypeIds" value="visual-studio-code"/>
+    <properties key="projectCommon.importModeId" value="COPY"/>
+    <properties key="universalConfig.compSelProjInstanceId" value="1791319879677"/>
+  </descriptors>
+</model:MDescriptors>

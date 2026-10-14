@@ -10,59 +10,60 @@ import Matter
 
 class MatterStorage: NSObject, MTRStorage {
     
-    private let defaults: UserDefaults
-    private let storageLock = NSLock() // Crítico para evitar crasheos de concurrencia
+    private let storageDirectory: URL
+    private let storageLock = NSLock()
     
     override init() {
-        // Usa el App Group si necesitas compartir datos con extensiones/widgets
-        // Reemplaza "group.com.andresing626.Matter" con el ID de tu App Group en Xcode
-        if let appGroupDefaults = UserDefaults(suiteName: "group.andresing626.ios-matter-controller") {
-            self.defaults = appGroupDefaults
-            print("MyStorage: Conectado al contenedor App Group.")
-        } else {
-            print("MyStorage: App Group no encontrado. Usando UserDefaults estándar.")
-            self.defaults = UserDefaults.standard
+        guard let containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.andresing626.ios-matter-controller"
+        ) else {
+            fatalError("App Group container not available — check entitlements")
         }
+        
+        self.storageDirectory = containerURL.appendingPathComponent("MatterStorage", isDirectory: true)
+        try? FileManager.default.createDirectory(
+            at: storageDirectory,
+            withIntermediateDirectories: true
+        )
+        
+        print("MatterStorage: Using container at \(storageDirectory.path)")
         super.init()
     }
     
-    // MARK: - MTRStorage Protocol
+    private func url(forKey key: String) -> URL {
+        // Encode key so it's a valid filename (keys contain '/')
+        let safe = key.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? key
+        return storageDirectory.appendingPathComponent(safe)
+    }
+    
+    // MARK: - MTRStorage
     
     func storageData(forKey key: String) -> Data? {
         storageLock.lock()
         defer { storageLock.unlock() }
-        
-        let data = defaults.data(forKey: key)
-        
-        /*
-        // Descomenta esto solo para depuración si necesitas ver qué está leyendo Matter
-        if let data = data {
-            print("MTRStorage Read: \(key) (\(data.count) bytes)")
-        } else {
-            print("MTRStorage Read: \(key) (nil)")
-        }
-        */
-        
+        let data = try? Data(contentsOf: url(forKey: key))
+        print("MTRStorage Read: \(key) (\(data?.count ?? 0) bytes)")
         return data
     }
     
     func setStorageData(_ value: Data, forKey key: String) -> Bool {
         storageLock.lock()
         defer { storageLock.unlock() }
-        
-        defaults.set(value, forKey: key)
-        // print("MTRStorage Write: \(key) (\(value.count) bytes)")
-        
-        return true
+        do {
+            try value.write(to: url(forKey: key), options: .atomic)
+            print("MTRStorage Write: \(key) (\(value.count) bytes)")
+            return true
+        } catch {
+            print("MTRStorage Write FAILED: \(key): \(error)")
+            return false
+        }
     }
     
     func removeStorageData(forKey key: String) -> Bool {
         storageLock.lock()
         defer { storageLock.unlock() }
-        
-        defaults.removeObject(forKey: key)
-        // print("MTRStorage Remove: \(key)")
-        
+        try? FileManager.default.removeItem(at: url(forKey: key))
+        print("MTRStorage Remove: \(key)")
         return true
     }
 }

@@ -1,0 +1,2700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+TERMS OF USE - SILICON LABORATORIES INC.
+(With respect to Silicon Labs software components, this Software Bill of Materials (SBOM) is based upon Silicon Labs'
+review and analysis of the code version when released.  It is provided "AS IS" and does not modify, change or alter
+the terms or conditions of your use of Silicon Labs' software and/or SDKs based upon license terms and/or agreements
+associated with this software or SDKs when distributed to you, received by you, or installed by you.  Further, no
+warranties or obligations are created by this SBOM.  It is your obligation to comply with the terms of licenses
+referenced in this SBOM.)
+-->
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <metadata>
+    <timestamp>2026-10-09T19:57:44Z</timestamp>
+    <authors>
+      <author>
+        <name>Silicon Laboratories, Inc.</name>
+      </author>
+    </authors>
+  </metadata>
+  <components>
+    <component bom-ref="silabs.matter:2.9.1" type="library">
+      <supplier>
+        <name>Silicon Laboratories Inc.</name>
+      </supplier>
+      <name>Silicon Labs Matter</name>
+      <version>2.9.1</version>
+      <components>
+        <component bom-ref="silabs.matter:2.9.1:app_common" type="library">
+          <name>app_common</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter" type="library">
+          <name>Matter Core Components</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_access_control" type="library">
+          <name>Access Control Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_administrator_commissioning" type="library">
+          <name>Administrator Commissioning Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_basic_information" type="library">
+          <name>Basic Information Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_codegen_dm" type="library">
+          <name>Matter ZAP Driven DM</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_configuration_over_swo" type="library">
+          <name>Configuration Over SWO</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_crypto_tinycrypt_siwx917" type="library">
+          <name>Matter MbedTLS Integration</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_default_lcd_config" type="library">
+          <name>Matter Default LCD/Display Configuration</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_descriptor" type="library">
+          <name>Descriptor Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_fixed_label" type="library">
+          <name>Fixed Label Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_general_commissioning" type="library">
+          <name>General Commissioning Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_general_diagnostics" type="library">
+          <name>General Diagnostics Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_group_key_mgmt" type="library">
+          <name>Group Key Management Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_icd_core" type="library">
+          <name>ICD Server Configuration</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_icd_management" type="library">
+          <name>ICD Management Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_identify" type="library">
+          <name>Identify Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_leds" type="library">
+          <name>Matter LED Support</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_localization_configuration" type="library">
+          <name>Localization Configuration Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_log_uart" type="library">
+          <name>Logging to UART</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_lwip" type="library">
+          <name>Matter LwIP</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_multi_sensor_app" type="library">
+          <name>matter_multi_sensor_app</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_network_commissioning" type="library">
+          <name>Network Commissioning Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_occupancy_sensor" type="library">
+          <name>Occupancy Sensing Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_operational_credentials" type="library">
+          <name>Operational Credentials Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_ota_requestor" type="library">
+          <name>OTA Software Update Requestor Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_ota_support" type="library">
+          <name>OTA Requestor</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_platform_siwx917" type="library">
+          <name>Platform for SiWx917</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_provision_flash" type="library">
+          <name>Flash Attestation Certificate provisioning configuration</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_relative_humidity_measurement" type="library">
+          <name>Relative Humidity Measurement Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_shell" type="library">
+          <name>Matter Shell</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_si70xx_sensor" type="library">
+          <name>Si70xx Sensor Support</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_software_diagnostics" type="library">
+          <name>Software Diagnostics Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_temperature_measurement" type="library">
+          <name>Temperature Measurement Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_time_format_localization" type="library">
+          <name>Time Format Localization Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_user_label" type="library">
+          <name>User Label Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_wifi" type="library">
+          <name>Matter WiFi</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_wifi_ble" type="library">
+          <name>Bluetooth Network Layer</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_wifi_network_diagnostics" type="library">
+          <name>Wi-Fi Network Diagnostics Server Cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:address_policy" type="library">
+          <name>address_policy</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:address_resolve" type="library">
+          <name>address_resolve</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:callbacks" type="library">
+          <name>callbacks</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:codegen_data_model_sources" type="library">
+          <name>codegen_data_model_sources</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:core" type="library">
+          <name>core</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:data_model" type="library">
+          <name>data_model</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:data_model_provider" type="library">
+          <name>data_model_provider</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:default_policy" type="library">
+          <name>default_policy</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:dnssd_wifi" type="library">
+          <name>dnssd_wifi</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:encode_decode" type="library">
+          <name>encode_decode</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:error" type="library">
+          <name>error</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:interaction_model" type="library">
+          <name>interaction_model</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libaccess" type="library">
+          <name>libaccess</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libasn1" type="library">
+          <name>libasn1</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libbdx" type="library">
+          <name>libbdx</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libblelayer" type="library">
+          <name>libblelayer</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libchipappserver" type="library">
+          <name>libchipappserver</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libchipcore" type="library">
+          <name>libchipcore</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libchipcrypto" type="library">
+          <name>libchipcrypto</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libchipdatamodel" type="library">
+          <name>libchipdatamodel</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libchipprotocols" type="library">
+          <name>libchipprotocols</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libclusterobjects" type="library">
+          <name>libclusterobjects</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libcredentials" type="library">
+          <name>libcredentials</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libdevicelayer_wifi" type="library">
+          <name>libdevicelayer_wifi</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libinetlayer_wifi" type="library">
+          <name>libinetlayer_wifi</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libinteractionmodel" type="library">
+          <name>libinteractionmodel</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libmatterdeviceinfoproviderexample" type="library">
+          <name>libmatterdeviceinfoproviderexample</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libmessaginglayer" type="library">
+          <name>libmessaginglayer</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:librawtransport" type="library">
+          <name>librawtransport</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libsecurechannel" type="library">
+          <name>libsecurechannel</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libsecurechanneltypes" type="library">
+          <name>libsecurechanneltypes</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libsetuppayload" type="library">
+          <name>libsetuppayload</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libsupportlayer" type="library">
+          <name>libsupportlayer</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libsystemlayer" type="library">
+          <name>libsystemlayer</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:libtransportlayer" type="library">
+          <name>libtransportlayer</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_check_in_message" type="library">
+          <name>check_in_message</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_includes" type="library">
+          <name>Stack</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_minimal_mdns" type="library">
+          <name>Matter Minimal mDNS</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_nlassert" type="library">
+          <name>Stack</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_nlio" type="library">
+          <name>Stack</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_ot_mbedtls_override" type="library">
+          <name>OT mbedtls override</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_power_save_interface" type="library">
+          <name>Includes header file PowerSaveInterface.h</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_rgb_leds" type="library">
+          <name>Matter RGB LED Support</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_sleep_manager" type="library">
+          <name>Sleep Manager for Matter WiFi</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_static_generated_zap_content" type="library">
+          <name>Statically-generated ZAP content</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_tracing_headers" type="library">
+          <name>tracing</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:matter_uart" type="library">
+          <name>Matter UART</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:memory" type="library">
+          <name>memory</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:messagedef" type="library">
+          <name>messagedef</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:naming" type="library">
+          <name>naming</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:records" type="library">
+          <name>records</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:responders" type="library">
+          <name>responders</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:server_cluster" type="library">
+          <name>server_cluster</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:siwx917" type="library">
+          <name>siwx917</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:siwx917_common" type="library">
+          <name>siwx917_common</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:text_only_logging" type="library">
+          <name>text_only_logging</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.matter:2.9.1:types" type="library">
+          <name>types</name>
+          <version>2.9.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+        </component>
+      </components>
+    </component>
+    <component bom-ref="silabs.simplicity_sdk:2026.6.1" type="library">
+      <supplier>
+        <name>Silicon Laboratories, Inc.</name>
+      </supplier>
+      <name>Simplicity SDK Suite</name>
+      <version>2026.6.1</version>
+      <components>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cmsis_rtos2_init" type="library">
+          <name>CMSIS-RTOS2 Initialization</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="cmsis_rtos2_init:6.2.0" type="library">
+                <supplier>
+                  <name>ARM-software</name>
+                </supplier>
+                <name>CMSIS_6</name>
+                <version>6.2.0</version>
+                <purl>pkg:github/ARM-software/CMSIS_6@6.2.0</purl>
+                <pedigree>
+                  <notes>The CMSIS is a set of tools, APIs, frameworks, and work flows</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://github.com/ARM-software/CMSIS_6</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:freertos" type="library">
+          <name>FreeRTOS Kernel</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="freertos:11.1.0" type="library">
+                <supplier>
+                  <name>AWS open source</name>
+                </supplier>
+                <name>FreeRTOS kernel</name>
+                <version>11.1.0</version>
+                <purl>https://github.com/FreeRTOS/FreeRTOS-Kernel/releases/tag/V11.1.0</purl>
+                <pedigree>
+                  <notes>FreeRTOS kernel, Version 11.1.0</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://github.com/FreeRTOS/FreeRTOS-Kernel</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:segger_rtt" type="library">
+          <name>SEGGER RTT</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_assert" type="library">
+          <name>Assert Functions</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:slist" type="library">
+          <name>Single Link List</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:agents_md" type="library">
+          <name>AGENTS.md</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:atomic" type="library">
+          <name>Atomic Operations Library</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:bit" type="library">
+          <name>Bit Operations Library</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cmsis_common" type="library">
+          <name>Common APIs for CMSIS-Compliant Kernels</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cmsis_core" type="library">
+          <name>CMSIS-Core</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="cmsis_core:6.2.0" type="library">
+                <supplier>
+                  <name>ARM-software</name>
+                </supplier>
+                <name>CMSIS_6</name>
+                <version>6.2.0</version>
+                <purl>pkg:github/ARM-software/CMSIS_6@6.2.0</purl>
+                <pedigree>
+                  <notes>The CMSIS is a set of tools, APIs, frameworks, and work flows</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://github.com/ARM-software/CMSIS_6</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cmsis_os2_ext_task_register" type="library">
+          <name>Task registers abstraction layer</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cmsis_rtos2_headers" type="library">
+          <name>CMSIS-RTOS2 Headers</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="cmsis_rtos2_headers:6.2.0" type="library">
+                <supplier>
+                  <name>ARM-software</name>
+                </supplier>
+                <name>CMSIS_6</name>
+                <version>6.2.0</version>
+                <purl>pkg:github/ARM-software/CMSIS_6@6.2.0</purl>
+                <pedigree>
+                  <notes>The CMSIS is a set of tools, APIs, frameworks, and work flows.</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://github.com/ARM-software/CMSIS_6</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cmsis_rtos2_tick" type="library">
+          <name>CMSIS-RTOS2 OS Tick</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="cmsis_rtos2_tick:6.2.0" type="library">
+                <supplier>
+                  <name>ARM-software</name>
+                </supplier>
+                <name>CMSIS_6</name>
+                <version>6.2.0</version>
+                <purl>pkg:github/ARM-software/CMSIS_6@6.2.0</purl>
+                <pedigree>
+                  <notes>The CMSIS is a set of tools, APIs, frameworks, and work flows</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://github.com/ARM-software/CMSIS_6</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:code_classification" type="library">
+          <name>Code Classification</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:component_catalog" type="library">
+          <name>Component Catalog</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:cpp_support" type="library">
+          <name>Toolchain: C++ Support</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:ecode" type="library">
+          <name>EMDRV Common Headers</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:emlib_core" type="library">
+          <name>CORE</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:enum" type="library">
+          <name>Enumerations</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:event_handler" type="library">
+          <name>Event Handler</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:freertos_kernel_cortexm" type="library">
+          <name>FreeRTOS Kernel ARM Cortex-M Port</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Apache 2.0</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="freertos_kernel_cortexm:11.1.0" type="library">
+                <supplier>
+                  <name>ARM-software</name>
+                </supplier>
+                <name>CMSIS-FreeRTOS</name>
+                <version>11.1.0</version>
+                <purl>https://github.com/ARM-software/CMSIS-FreeRTOS/releases/tag/v11.1.0</purl>
+                <pedigree>
+                  <notes>CMSIS-FreeRTOS, Version 11.1.0</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://github.com/ARM-software/CMSIS-FreeRTOS</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:iostream" type="library">
+          <name>IO Stream</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:iostream_rtt" type="library">
+          <name>IO Stream: RTT</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:log_none" type="library">
+          <name>Log None</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:mbedtls_config" type="library">
+          <name>Configuration</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:mbedtls_slcrypto" type="library">
+          <name>Silicon Labs Mbed TLS support</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:mbedtls_slcrypto_driver" type="library">
+          <name>Drivers for Silicon Labs Crypto Acceleration</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:mbedtls_threading_alt_cmsis_rtos2" type="library">
+          <name>Silicon Labs Threading support Mbed TLS</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:mem_pool" type="library">
+          <name>Memory Pool</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:memory_manager_pool" type="library">
+          <name>Memory Manager Memory Pool</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:memory_manager_pool_common" type="library">
+          <name>Memory Manager Memory Pool Common</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:memory_manager_redirect" type="library">
+          <name>Memory Manager Redirect</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:nvm3_default" type="library">
+          <name>NVM3 Default Instance</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:nvm3_default_config" type="library">
+          <name>NVM3 Default Config</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:nvm3_default_flash_backend" type="library">
+          <name>NVM3 back-end for default instance in flash</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:nvm3_source" type="library">
+          <name>NVM3 Core (source)</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:nvm3_trace_config" type="library">
+          <name>NVM3 Trace Config</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:ot_crypto_ecdsa_nondeterministic" type="library">
+          <name>Non-Deterministic ECDSA Support</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:psa_crypto" type="library">
+          <name>PSA Crypto</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:psa_crypto_common" type="library">
+          <name>PSA Crypto Common</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:psa_crypto_config" type="library">
+          <name>Configuration</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:psa_crypto_trng" type="library">
+          <name>TRNG</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:psa_driver" type="library">
+          <name>Drivers for Crypto Acceleration</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:psa_driver_common" type="library">
+          <name>PSA Driver Common Source Code</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_common" type="library">
+          <name>Common Functions</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_core" type="library">
+          <name>core</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_main" type="library">
+          <name>System Setup (sl_main)</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_main_init" type="library">
+          <name>sl main Init</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_main_kernel" type="library">
+          <name>SL Main Kernel</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_main_memory_init" type="library">
+          <name>sl_main Setup</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_main_process_action" type="library">
+          <name>sl_main Process Action</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sl_string" type="library">
+          <name>String Functions</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sleeptimer" type="library">
+          <name>Sleep Timer</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sleeptimer_cortexm" type="library">
+          <name>Sleep Timer Cortex-M Architecture Support</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sli_psec_common" type="library">
+          <name>PSEC Common Primitives</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:sli_psec_osal" type="library">
+          <name>OS Abstraction Layer</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:status" type="library">
+          <name>Status Codes Definitions</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:toolchain_variant_arm" type="library">
+          <name>Toolchain for ARM</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.simplicity_sdk:2026.6.1:trustzone_unaware" type="library">
+          <name>TrustZone Unaware</name>
+          <version>2026.6.1</version>
+	      <supplier>
+	        <name>Silicon Laboratories, Inc.</name>
+	      </supplier>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+      </components>
+    </component>
+    <component bom-ref="silabs.wiseconnect3_sdk:4.1.1" type="library">
+      <name>Wiseconnect</name>
+      <version>4.1.1</version>
+      <components>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:SIWG917M111MGTBA" type="library">
+          <name>SIWG917M111MGTBA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:basic_network_config_manager" type="library">
+          <name>Basic Network Configuration Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:ble" type="library">
+          <name>BLE</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:brd2605a" type="library">
+          <name>BRD2605A</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:i2c_instance" type="library">
+          <name>I2C</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_mem_config_3" type="library">
+          <name>MEMORY_MCU_ADVANCED_WIRELESS_BASIC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_basic_buffers" type="library">
+          <name>Basic Buffer Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_button_917" type="library">
+          <name>Button</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_common_flash_nvm3" type="library">
+          <name>NVM3 Common Flash</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_led_917" type="library">
+          <name>LED</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_mcu" type="library">
+          <name>MCU Subsystem</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_soc_soft_reset" type="library">
+          <name>Soft Reset</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_wireless" type="library">
+          <name>SiWx91x Wireless Subsystem</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:ulp_timers_instance" type="library">
+          <name>ULP Timer</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:wifi" type="library">
+          <name>Wi-Fi</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:wifi_resources" type="library">
+          <name>WiSeConnect Resources</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:wiseconnect_common" type="library">
+          <name>WiSeConnect Common Library</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:basic_credential_manager" type="library">
+          <name>Basic Credential Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:board_configuration_headers" type="library">
+          <name>Board Configuration Header Files</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:brd2605a_config" type="library">
+          <name>brd2605a config</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:cmsis_common_driver" type="library">
+          <name>CMSIS COMMON DRIVER</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:cmsis_driver_headers" type="library">
+          <name>CMSIS Driver Header Files</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Apache-2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:cmsis_peripheral_headers" type="library">
+          <name>CMSIS Peripheral Header Files</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA AND Apache-2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:cmsis_udma" type="library">
+          <name>CMSIS UDMA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA AND Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:cmsis_usart" type="library">
+          <name>CMSIS USART</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Apache-2.0 AND Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:cmsis_usart_driver" type="library">
+          <name>CMSIS USART DRIVER</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:external_flash_none" type="library">
+          <name>No External Flash</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:external_psram_8mb" type="library">
+          <name>8MB PSRAM (External)</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:freertos_config" type="library">
+          <name>FreeRTOS Configuration</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MIT</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:gpio_npss_component" type="library">
+          <name>PM UULP GPIO</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:malloc_thread_safety" type="library">
+          <name>Malloc thread safety</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:netstack_silabs_lwip_api" type="library">
+          <name>LightWeight IP (LWIP) API</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>BSD-3-Clause</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="netstack_silabs_lwip_api:2.2.1" type="library">
+                <supplier>
+                  <name>lwIP Developers</name>
+                </supplier>
+                <name>lwip</name>
+                <version>2.2.1</version>
+                <purl>https://github.com/lwip-tcpip/lwip/</purl>
+                <pedigree>
+                  <notes>lwIP is a small independent implementation of the TCP/IP protocol suite.</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://savannah.nongnu.org/projects/lwip/</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:netstack_silabs_lwip_core" type="library">
+          <name>LightWeight IP (LWIP) core stack</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>BSD-3-Clause</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="netstack_silabs_lwip_core:2.2.1" type="library">
+                <supplier>
+                  <name>lwIP Developers</name>
+                </supplier>
+                <name>lwip</name>
+                <version>2.2.1</version>
+                <purl>https://github.com/lwip-tcpip/lwip/</purl>
+                <pedigree>
+                  <notes>lwIP is a small independent implementation of the TCP/IP protocol suite.</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://savannah.nongnu.org/projects/lwip/</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:netstack_silabs_lwip_netif_ethernet" type="library">
+          <name>LWIP generic network interface device drivers for ethernet</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>BSD-3-Clause</expression>
+          </licenses>
+          <pedigree>
+            <ancestors>
+              <component bom-ref="netstack_silabs_lwip_netif_ethernet:2.2.1" type="library">
+                <supplier>
+                  <name>lwIP Developers</name>
+                </supplier>
+                <name>lwip</name>
+                <version>2.2.1</version>
+                <purl>https://github.com/lwip-tcpip/lwip/</purl>
+                <pedigree>
+                  <notes>lwIP is a small independent implementation of the TCP/IP protocol suite.</notes>
+                </pedigree>
+                <externalReferences>
+                  <reference type="website">
+                    <url>https://savannah.nongnu.org/projects/lwip/</url>
+                  </reference>
+                </externalReferences>
+              </component>
+            </ancestors>
+          </pedigree>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:network_manager" type="library">
+          <name>Network Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib AND Apache-2.0</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:opn_config" type="library">
+          <name>opn config</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:power_manager_config" type="library">
+          <name>Power Manager Configuration</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_clks" type="library">
+          <name>ROM DRIVER CLOCK</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_crc" type="library">
+          <name>ROM DRIVER CRC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_egpio" type="library">
+          <name>ROM DRIVER EGPIO</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_headers" type="library">
+          <name>ROM Driver Headers</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_packing" type="library">
+          <name>ROM DRIVER PACKING</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_power_save" type="library">
+          <name>ROM DRIVER POWER SAVE</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_romtable" type="library">
+          <name>ROM TABLE</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_romtable_headers" type="library">
+          <name>ROM Table Header</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_timer" type="library">
+          <name>ROM DRIVER TIMER</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_udma" type="library">
+          <name>ROM DRIVER UDMA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_udma_wrapper" type="library">
+          <name>ROM DRIVER UDMA WRAPPER</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:romdriver_ulpss" type="library">
+          <name>ROM DRIVER ULPSS</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_adc" type="library">
+          <name>ADC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_aux_reference_volt_config" type="library">
+          <name>AUX REFERENCE VOLT</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_board" type="library">
+          <name>SoC Board Configurations</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA AND Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_chip" type="library">
+          <name>Core</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_clock_update" type="library">
+          <name>CLOCK UPDATE</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_crc" type="library">
+          <name>CRC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_dac" type="library">
+          <name>DAC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_egpio" type="library">
+          <name>EGPIO</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_headers" type="library">
+          <name>RSI Peripheral Headers</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_opamp" type="library">
+          <name>OPAMP</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_sysrtc" type="library">
+          <name>SYSRTC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_timers" type="library">
+          <name>TIMERS API</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_udma" type="library">
+          <name>UDMA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_udma_wrapper" type="library">
+          <name>UDMA WRAPPER</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_usart" type="library">
+          <name>USART</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:rsilib_userconfig" type="library">
+          <name>RSI User Configuration</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:segger_rtt_config_siwx91x" type="library">
+          <name>SEGGER RTT Config define</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_common_flash" type="library">
+          <name>Common Flash Component</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_debug" type="library">
+          <name>Debug Unit</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_device_init_nvic" type="library">
+          <name>NVIC Interrupt Priorities Configuration for FreeRTOS</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_log_none" type="library">
+          <name>Log None</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_stack_size_configuration" type="library">
+          <name>Stack Size Configuration</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:si91x_tickless_mode" type="library">
+          <name>Tick-Less Mode</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_adc" type="library">
+          <name>ADC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_bjt_temperature_sensor" type="library">
+          <name>BJT Temperature Sensor</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_clock_manager" type="library">
+          <name>Clock Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_dma" type="library">
+          <name>DMA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_gpio" type="library">
+          <name>GPIO</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_gpio_peripheral" type="library">
+          <name>SL GPIO Peripheral</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_i2c" type="library">
+          <name>I2C</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_i2c_peripheral" type="library">
+          <name>SL I2C Peripheral</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_power_manager" type="library">
+          <name>Power Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si70xx" type="library">
+          <name>Si70xx Humidity and Temperature Sensor</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_agents_md" type="library">
+          <name>AGENTS.md (Generative AI project context)</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_ccm" type="library">
+          <name>CCM</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_crypto" type="library">
+          <name>Crypto - Common</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_ecdh" type="library">
+          <name>ECDH</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_ecdsa" type="library">
+          <name>ECDSA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_fwup" type="library">
+          <name>Firmware Upgrade (SiWx91x)</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_gcm" type="library">
+          <name>GCM</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_hmac" type="library">
+          <name>HMAC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_lwip_stack" type="library">
+          <name>LwIP Network Stack (Hosted)</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_memory_manager" type="library">
+          <name>Memory Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_nvm3" type="library">
+          <name>NVM3</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_aead" type="library">
+          <name>PSA AEAD</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_crypto" type="library">
+          <name>PSA Crypto - Utility</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_ecdh" type="library">
+          <name>PSA ECDH</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_ecdsa" type="library">
+          <name>PSA ECDSA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_mac" type="library">
+          <name>PSA MAC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_sha" type="library">
+          <name>PSA SHA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_trng" type="library">
+          <name>PSA TRNG</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_psa_wrap" type="library">
+          <name>PSA WRAP</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_sha" type="library">
+          <name>SHA</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_trng" type="library">
+          <name>TRNG</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_si91x_wrap" type="library">
+          <name>WRAP</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sl_ulp_timer" type="library">
+          <name>ULP Timer</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sleeptimer_si91x" type="library">
+          <name>Sleep Timer</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_buffer_manager" type="library">
+          <name>sli Buffer Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_command_engine" type="library">
+          <name>Command Engine</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_event_engine" type="library">
+          <name>Event Engine</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_hal_si91x" type="library">
+          <name>SiWx91x Wireless Subsystem HAL</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_queue_manager" type="library">
+          <name>SLI Queue Manager</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_routing_utility" type="library">
+          <name>Sli Routing Utility</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_si91x_wifi_command_engine" type="library">
+          <name>Sli SiWx91x WiFi Command Engine</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_si91x_wifi_event_handler" type="library">
+          <name>Sli SiWx91x WiFi handler</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sli_wifi" type="library">
+          <name>SLI Wi-Fi</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:sllib_m4_power_save" type="library">
+          <name>Cortex-M4 Powersave</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:syscalls" type="library">
+          <name>System Calls</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>MSLA</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_bod" type="library">
+          <name>BOD</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_headers" type="library">
+          <name>System-Level API Headers</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_ipmu" type="library">
+          <name>IPMU</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_pll" type="library">
+          <name>PLL</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_power_save" type="library">
+          <name>POWER SAVE</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_reg_spi" type="library">
+          <name>REG SPI</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_rtc" type="library">
+          <name>RTC</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_temp_sensor" type="library">
+          <name>TEMPERATURE SENSOR</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_time_period" type="library">
+          <name>TIME PERIOD</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_ulpss_clk" type="library">
+          <name>ULPSS CLOCK</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:systemlevel_wwdt" type="library">
+          <name>WWDT</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:udma_linker_config" type="library">
+          <name>UDMA Linker Configuration</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:wakeup_source_config" type="library">
+          <name>PM Wakeup Source Configuration</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:wiseconnect_toolchain_gcc_standard" type="library">
+          <name>GCC Toolchain Standard Linker</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+        <component bom-ref="silabs.wiseconnect3_sdk:4.1.1:wiseconnect_toolchain_plugin" type="library">
+          <name>GCC Toolchain Support</name>
+          <version>4.1.1</version>
+          <licenses>
+            <expression>Zlib</expression>
+          </licenses>
+        </component>
+      </components>
+    </component>
+  </components>
+</bom>

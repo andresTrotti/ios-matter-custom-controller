@@ -8,5 +8,9 @@
 	<array>
 		<string>group.andresing626.ios-matter-controller</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)group.andresing626.ios-matter-controller-keySharing</string>
+	</array>
 </dict>
 </plist>

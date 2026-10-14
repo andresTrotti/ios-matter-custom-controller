@@ -2,246 +2,320 @@
 //  RequestHandler.swift
 //  RequestHandler
 //
-//  Created by Andres Trotti on 10/8/26.
-//
 
 import MatterSupport
 import OSLog
 import Matter
+import Security
 
-
-
-// The extension is launched in response to `MatterAddDeviceRequest.perform()` and this class is the entry point
-// for the extension operations.
-class RequestHandler: MatterAddDeviceExtensionRequestHandler {
+class RequestHandler: MatterAddDeviceExtensionRequestHandler, MTRDeviceControllerDelegate {
     
-    var deviceController: MTRDeviceController? = nil
-  
-    
-    // Use OSLog to log debugging information.
-       private let logger = Logger(subsystem: "ios-matter-controller", category: "DeviceSetup")
+    private var cachedController: MTRDeviceController?
 
-nonisolated
-       override init() {
-           super.init()
-           logger.debug("MatterAddDeviceExtensionRequestHandler initialized")
-       }
-    
-    override func validateDeviceCredential(_ deviceCredential: MatterAddDeviceExtensionRequestHandler.DeviceCredential) async throws {
-        // Use this function to perform additional attestation checks if that is useful for your ecosystem.
+    private var deviceController: MTRDeviceController?
+        private var commissioningContinuation: CheckedContinuation<Void, Error>?
+        private var currentNodeID: NSNumber? // <-- Add this to remember the ID between steps
+        
+
+    private let logger = Logger(subsystem: "ios-matter-controller", category: "DeviceSetup")
+
+    nonisolated override init() {
+        super.init()
+        logger.debug("MatterAddDeviceExtensionRequestHandler initialized")
     }
 
-    override func selectWiFiNetwork(from wifiScanResults: [MatterAddDeviceExtensionRequestHandler.WiFiScanResult]) async throws -> MatterAddDeviceExtensionRequestHandler.WiFiNetworkAssociation {
-        // Use this function to select a Wi-Fi network for the device if your ecosystem has special requirements.
-        // Or, return `.defaultSystemNetwork` to use the iOS device's current network.
+    // MARK: - Required overrides
+
+    override func validateDeviceCredential(
+        _ deviceCredential: MatterAddDeviceExtensionRequestHandler.DeviceCredential
+    ) async throws {
+        // Attestation hooks if needed
+    }
+
+    override func selectWiFiNetwork(
+        from wifiScanResults: [MatterAddDeviceExtensionRequestHandler.WiFiScanResult]
+    ) async throws -> MatterAddDeviceExtensionRequestHandler.WiFiNetworkAssociation {
         return .defaultSystemNetwork
     }
 
-    override func selectThreadNetwork(from threadScanResults: [MatterAddDeviceExtensionRequestHandler.ThreadScanResult]) async throws -> MatterAddDeviceExtensionRequestHandler.ThreadNetworkAssociation {
-        // Use this function to select a Thread network for the device if your ecosystem has special requirements.
-        // Or, return `.defaultSystemNetwork` to use the default Thread network.
+    override func selectThreadNetwork(
+        from threadScanResults: [MatterAddDeviceExtensionRequestHandler.ThreadScanResult]
+    ) async throws -> MatterAddDeviceExtensionRequestHandler.ThreadNetworkAssociation {
         return .defaultSystemNetwork
-    }
-
-    override func commissionDevice(in home: MatterAddDeviceRequest.Home?, onboardingPayload: String, commissioningID: UUID) async throws {
-        // Use this function to commission the device with your Matter stack.
-        print("onboarding payload: \(onboardingPayload) and commissioningID: \(commissioningID) and home: \(home.debugDescription )")
-        let sharedDefaults = UserDefaults(suiteName: "group.andresing626.ios-matter-controller")
-        sharedDefaults?.set(onboardingPayload, forKey: "onboardingPayload")
-        sharedDefaults?.synchronize()
-        
-        logger.debug("Commissioning device in home '\(String(describing: home.debugDescription))' with payload: \(onboardingPayload).")
-
-
-                do {
-                    // Parse the onboarding payload and commission the device to your app using the Matter framework APIs.
-                    logger.info("Successfully commissioned device with ID: \(commissioningID)")
-
-
-                    // Make sure that your application returns from this method when it finished pairing the accessory with your application.
-                    // Returning from this method indicates to the MatterSupport framework that the pairing process is completed,
-
-
-                    // and the system displays a view to indicate that the pairing process is completed.
-                } catch {
-                    logger.error("Failed to commission device: \(error.localizedDescription)")
-                    
-                }
-        
-        // Get the controller (create if needed)
-        createController()
-        
-        
-        // Commission the device
-        let nodeID = NSNumber(value: 1)
-        let params = MTRCommissioningParameters()
-        
-        try deviceController?.commissionNode(withID: nodeID, commissioningParams: params)
-        
-        
     }
 
     override func rooms(in home: MatterAddDeviceRequest.Home?) async -> [MatterAddDeviceRequest.Room] {
-        // Use this function to return the rooms your ecosystem manages.
-        // If your ecosystem manages multiple homes, ensure you are returning rooms that belong to the provided home.
         return [.init(displayName: "Living Room")]
     }
 
     override func configureDevice(named name: String, in room: MatterAddDeviceRequest.Room?) async {
-          logger.debug("Configuring device '\(name)' in room: \(String(describing: room?.displayName))")
-
-
-          // Retrieve and configure the newly paired device in your ecosystem;
-          // for example, find the device, set its name or room, apply default configurations, and save information in your database.
-          logger.info("Device '\(name)' successfully configured")
-      }
-    
-    
-    
-    func getOrGenerateIPK() -> Data? {
-        let keychainKey = "com.andresing626.matter.ipk"
-        
-        // 1. Try to load an existing IPK from the Keychain
-        if let existingData = loadFromKeychain(key: keychainKey) {
-            print("IPK loaded successfully from Keychain.")
-            return existingData
-        }
-        
-        // 2. If it doesn't exist (first app launch), generate a new 16-byte random IPK
-        var keyBytes = [UInt8](repeating: 0, count: 16)
-        let status = SecRandomCopyBytes(kSecRandomDefault, keyBytes.count, &keyBytes)
-        
-        guard status == errSecSuccess else {
-            print("Error generating random bytes for IPK")
-            return nil
-        }
-        
-        let newIPKData = Data(keyBytes)
-        
-        // 3. Save it to the Keychain so it persists across app launches/reinstalls
-        saveToKeychain(data: newIPKData, for: keychainKey)
-        print("New IPK generated and saved to Keychain.")
-        
-        return newIPKData
+        logger.info("Device '\(name)' successfully configured")
     }
 
-    
-    func createController() {
-        // Obtain the controller factory.
-        let factory = MTRDeviceControllerFactory.sharedInstance()
+    // MARK: - Commissioning
 
+    override func commissionDevice(
+        in home: MatterAddDeviceRequest.Home?,
+        onboardingPayload: String,
+        commissioningID: UUID
+    ) async throws {
 
-        let storage = MatterStorage()
-        let factoryParams = MTRDeviceControllerFactoryParams(storage: storage)
+        logger.debug("Commissioning device with payload: \(onboardingPayload)")
 
+        // 1. Persistir payload en el App Group (por si la app lo necesita)
+        UserDefaults(suiteName: "group.andresing626.ios-matter-controller")?
+            .set(onboardingPayload, forKey: "onboardingPayload")
 
-        // Set `factoryParams.productAttestationAuthorityCertificates` to an
-        // array of trusted Matter PAA certificates.
+        // 2. Crear/obtener el controller (esto puede lanzar)
+        let controller = try createOrLoadController()
 
+        // 3. IMPORTANTE: registrar el delegate ANTES de comisionar
+        controller.setDeviceControllerDelegate(self, queue: .main)
+        self.deviceController = controller
 
-        do {
-            // Start the controller factory.
-            try factory.start(factoryParams)
-            
-            let ipk = getOrGenerateIPK()
-            
+        guard let setupPayload = try? MTRSetupPayload(payload: onboardingPayload) else {
+                    throw NSError(domain: "RequestHandler", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid onboarding payload"])
+                }
 
-            let fabricID = NSNumber(value: 1)
-            
-            let params = MTRDeviceControllerStartupParams(ipk: ipk!,
-                                                          fabricID: fabricID,
-                                                          nocSigner: MyRootKeypair())
-            
-            params.vendorID = NSNumber(value: 0xFFF1)
-            
-            
-            
-            
-            // Check if the fabric is already known in storage
-            let existingFabrics = factory.knownFabrics ?? []
-            let fabricExists = existingFabrics.contains { $0.fabricID == fabricID }
-            
-            if fabricExists {
-                // If it already exists on disk, load it instead of creating a new one
-                deviceController = try factory.createController(onExistingFabric: params)
-                print("Successfully loaded existing Matter controller for fabric \(fabricID)")
+                // 5. Iniciar la sesión PASE y ESPERAR al delegate
+                let nodeID = NSNumber(value: UInt64.random(in: 2...0xFFFF_FFF0_0000_0000))
+                self.currentNodeID = nodeID // Save it so the delegate can use it
                 
-            } else {
-                // First time initialization
-                deviceController = try factory.createController(onNewFabric: params)
-                print("Successfully created new Matter controller for fabric \(fabricID)")
-                
+                try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+                    self.commissioningContinuation = cont
+                    do {
+                        // STEP 1: Connect to the device using the payload!
+                        try controller.setupCommissioningSession(with: setupPayload, newNodeID: nodeID)
+                        // The flow will now jump to `commissioningSessionEstablishmentDone`
+                    } catch {
+                        self.commissioningContinuation = nil
+                        cont.resume(throwing: error)
+                    }
+                }
+
+                logger.info("Commissioning completed for node \(nodeID)")
+
+        logger.info("Commissioning completed for node \(nodeID)")
+    }
+
+    // MARK: - MTRDeviceControllerDelegate
+        
+    // MARK: - MTRDeviceControllerDelegate
+
+    func controller(
+        _ controller: MTRDeviceController,
+        commissioningComplete error: Error?,
+        nodeID: NSNumber?
+    ) {
+        if let error = error {
+            logger.error("Commissioning failed: \(error.localizedDescription)")
+            commissioningContinuation?.resume(throwing: error)
+            commissioningContinuation = nil
+            return
+        }
+
+        logger.info("Commissioning completed successfully for node \(String(describing: nodeID))")
+        
+        if let actualNodeID = nodeID {
+            // 1. Guardar en UserDefaults
+            if let defaults = UserDefaults(suiteName: "group.andresing626.ios-matter-controller") {
+                defaults.set(actualNodeID, forKey: "savedNodeID")
+            }
+
+            // 2. ⚡️ INTENTO DE LECTURA DE LOS 3 SENSORES EN PARALELO
+            let device = MTRBaseDevice(nodeID: actualNodeID, controller: controller)
+            
+            // Creamos un DispatchGroup para esperar a que los 3 respondan
+            let readGroup = DispatchGroup()
+
+            // --- ENDPOINT 1: OCUPACIÓN (Cluster 1030) ---
+            let occCluster = MTRBaseClusterOccupancySensing(device: device, endpointID: NSNumber(value: 1), queue: DispatchQueue.main)
+            readGroup.enter()
+            occCluster?.readAttributeOccupancy { value, readError in
+                if let readError = readError {
+                    print("⚠️ Falló lectura de Ocupación: \(readError.localizedDescription)")
+                } else if let occValue = value {
+                    print("🚶‍♂️ ¡Ocupación leída!: \(occValue) (1=Detectado, 0=Libre)")
+                }
+                readGroup.leave()
+            }
+
+            // --- ENDPOINT 2: TEMPERATURA (Cluster 1026) ---
+            let tempCluster = MTRBaseClusterTemperatureMeasurement(device: device, endpointID: NSNumber(value: 2), queue: DispatchQueue.main)
+            readGroup.enter()
+            tempCluster?.readAttributeMeasuredValue { value, readError in
+                if let readError = readError {
+                    print("⚠️ Falló lectura de Temperatura: \(readError.localizedDescription)")
+                } else if let tempValue = value {
+                    print("🌡️ ¡Temperatura leída!: \(tempValue) (\(Double(truncating: tempValue) / 100.0) °C)")
+                }
+                readGroup.leave()
+            }
+
+            // --- ENDPOINT 3: HUMEDAD RELATIVA (Cluster 1029) ---
+            let humCluster = MTRBaseClusterRelativeHumidityMeasurement(device: device, endpointID: NSNumber(value: 3), queue: DispatchQueue.main)
+            readGroup.enter()
+            humCluster?.readAttributeMeasuredValue { value, readError in
+                if let readError = readError {
+                    print("⚠️ Falló lectura de Humedad: \(readError.localizedDescription)")
+                } else if let humValue = value {
+                    print("💧 ¡Humedad leída!: \(humValue) (\(Double(truncating: humValue) / 100.0) %)")
+                }
+                readGroup.leave()
+            }
+
+            // 3. Resume continuation SOLO cuando los 3 sensores hayan terminado de responder
+            readGroup.notify(queue: .main) {
+                self.commissioningContinuation?.resume(returning: ())
+                self.commissioningContinuation = nil
+                self.currentNodeID = nil
             }
             
-          
+        } else {
+            commissioningContinuation?.resume(returning: ())
+            commissioningContinuation = nil
+            self.currentNodeID = nil
+        }
+    }
             
+        // STEP 2: PASE Session established, now we can commission!
+        func controller(_ controller: MTRDeviceController, commissioningSessionEstablishmentDone error: Error?) {
+            if let error = error {
+                logger.error("Session establishment failed: \(error.localizedDescription)")
+                commissioningContinuation?.resume(throwing: error)
+                commissioningContinuation = nil
+                return
+            }
+            
+            guard let nodeID = self.currentNodeID else {
+                logger.error("Node ID missing in session establishment")
+                return
+            }
+            
+            logger.info("Session established successfully! Proceeding to commission...")
+            
+            // Remove the `skipNetworkProvisioning` line entirely.
+            // Leaving the parameters blank automatically skips Wi-Fi provisioning.
+            let params = MTRCommissioningParameters()
+            
+            do {
+                // STEP 3: Actually commission the node and exchange certificates
+                try controller.commissionNode(withID: nodeID, commissioningParams: params)
+                
+                // IMPORTANT: Do NOT set commissioningContinuation = nil here!
+                // We must leave it alive so `commissioningComplete` can call `.resume()` on it.
+                
+            } catch {
+                logger.error("Failed to call commissionNode: \(error.localizedDescription)")
+                commissioningContinuation?.resume(throwing: error)
+                commissioningContinuation = nil
+            }
+        }
+
+    // MARK: - Controller setup
+
+    private func createOrLoadController() throws -> MTRDeviceController {
+
+        if let existing = cachedController, existing.isRunning {
+            print("Reusing cached controller")
+            return existing
+        }
+
+
+        let factory = MTRDeviceControllerFactory.sharedInstance()
+        let storage = MatterStorage()
+        let factoryParams = MTRDeviceControllerFactoryParams(storage: storage)
+        
+
+        do {
+            try factory.start(factoryParams)
         } catch {
-            let nsError = error as NSError
-                print("❌ Controller Setup Failed!")
-                print("Error Domain: \(nsError.domain)")
-                print("Error Code: \(nsError.code)")
-                print("Description: \(nsError.localizedDescription)")
-                print("UserInfo: \(nsError.userInfo)")
-            
+            // Ya estaba arrancado — OK
+            logger.debug("factory.start threw (likely already started): \(error)")
+        }
+
+        let ipk = try getOrGenerateIPK()
+        let fabricID: NSNumber = 1
+
+        let params = MTRDeviceControllerStartupParams(
+            ipk: ipk,
+            fabricID: fabricID,
+            nocSigner: MyRootKeypair()
+        )
+        params.vendorID = NSNumber(value: 0x1384)
+        
+
+        // Intenta cargar la fabric existente; si no existe, créala.
+        do {
+            let controller = try factory.createController(onExistingFabric: params)
+            logger.info("Loaded existing controller for fabric \(fabricID)")
+            return controller
+        } catch {
+            logger.info("No existing fabric (\(error.localizedDescription)); creating new one.")
+            let controller = try factory.createController(onNewFabric: params)
+            logger.info("Created new controller for fabric \(fabricID)")
+            return controller
         }
     }
     
+    // MARK: - IPK
+
     
-    func saveToKeychain(data: Data, for key: String) -> Bool {
-        // 1. Convertir la clave de texto a un identificador binario (Access Control Tag)
-        let encodedKey = key.data(using: .utf8)!
-        
-        // 2. Definir los atributos del ítem que vamos a guardar
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: encodedKey,
-            kSecValueData as String: data,
-            // kSecAttrAccessibleAfterFirstUnlock asegura que esté disponible
-            // incluso en segundo plano si el dispositivo está desbloqueado
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
-        ]
-        
-        // 3. Eliminar cualquier registro previo con la misma clave para evitar duplicados
-        SecItemDelete(query as CFDictionary)
-        
-        // 4. Guardar el nuevo dato en el Keychain
-        let status = SecItemAdd(query as CFDictionary, nil)
-        
-        if status != errSecSuccess {
-            print("Error al guardar en Keychain. Código de error: \(status)")
-            return false
+    private func getOrGenerateIPK() throws -> Data {
+        guard let defaults = UserDefaults(suiteName: "group.andresing626.ios-matter-controller") else {
+            fatalError("App Group not found")
         }
         
-        return true
+        let ipkKey = "matter.ipk.raw"
+        
+        if let existing = defaults.data(forKey: ipkKey) {
+            return existing
+        }
+        
+        var bytes = [UInt8](repeating: 0, count: 16)
+        guard SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) == errSecSuccess else {
+            throw NSError(domain: "IPKError", code: 1, userInfo: nil)
+        }
+        
+        let data = Data(bytes)
+        defaults.set(data, forKey: ipkKey)
+        return data
     }
 
-    func loadFromKeychain(key: String) -> Data? {
-        let encodedKey = key.data(using: .utf8)!
-        
-        // 1. Configurar la consulta para buscar el ítem binario
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: encodedKey,
-            kSecReturnData as String: true,        // Queremos que devuelva los datos
-            kSecMatchLimit as String: kSecMatchLimitOne // Solo necesitamos la primera coincidencia
-        ]
-        
-        var item: CFTypeRef?
-        
-        // 2. Ejecutar la búsqueda en el Keychain
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
-        // 3. Verificar si se encontró y devolver los datos de tipo Data
-        if status == errSecSuccess {
+    // MARK: - Keychain helpers
+
+    // Replace "TEAMID" with your actual Apple Team ID prefix shown in Xcode's Keychain Sharing capability
+        private let sharedKeychainGroup = "7C8Q4538WG.group.andresing.ios-matter-controller-keySharing"
+
+        // MARK: - Keychain helpers
+
+        @discardableResult
+        private func saveToKeychain(data: Data, for key: String) -> Bool {
+            let encodedKey = key.data(using: .utf8)!
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: encodedKey,
+                kSecValueData as String: data,
+                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+                kSecAttrAccessGroup as String: sharedKeychainGroup // <-- CRITICAL FIX
+            ]
+            SecItemDelete(query as CFDictionary)
+            return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
+        }
+
+        private func loadFromKeychain(key: String) -> Data? {
+            let encodedKey = key.data(using: .utf8)!
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrAccount as String: encodedKey,
+                kSecReturnData as String: true,
+                kSecMatchLimit as String: kSecMatchLimitOne,
+                kSecAttrAccessGroup as String: sharedKeychainGroup // <-- CRITICAL FIX
+            ]
+            var item: CFTypeRef?
+            guard SecItemCopyMatching(query as CFDictionary, &item) == errSecSuccess else {
+                return nil
+            }
             return item as? Data
         }
-        
-        // Si no existe (primer inicio de la app), devuelve nil de forma silenciosa
-        return nil
-    }
-
 }
-
-
-
-
