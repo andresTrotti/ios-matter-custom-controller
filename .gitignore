@@ -1,0 +1,26 @@
+# Archivos de sistema macOS
+.DS_Store
+.AppleDouble
+.lsdringo
+
+# CMake y carpetas de compilación
+build/
+bin/
+lib/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Xcode y desarrollo iOS
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.app
+*.ipa
+
+# Claves locales y configuraciones privadas
+*.pem
+*.key
