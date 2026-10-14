@@ -73,7 +73,7 @@ class ContentViewState {
         do {
             try factory.start(factoryParams)
         } catch {
-            // Ya estaba arrancado — OK
+            // Factory was already started — OK
             logger.debug("factory.start threw (likely already started): \(error)")
         }
 
@@ -87,7 +87,7 @@ class ContentViewState {
         )
         params.vendorID = NSNumber(value: 0x1384)
         
-        // Intenta cargar la fabric existente; si no existe, créala.
+        // Try to load existing fabric; if it doesn't exist, create a new one.
         do {
             let controller = try factory.createController(onExistingFabric: params)
             logger.info("Loaded existing controller for fabric \(fabricID)")
@@ -108,7 +108,7 @@ class ContentViewState {
         var statusMessage = "Preparing to start pairing..."
         
         let homes = [MatterAddDeviceRequest.Home(displayName: "home 1")]
-        let topology = MatterAddDeviceRequest.Topology(ecosystemName: "My ecosistema", homes: homes)
+        let topology = MatterAddDeviceRequest.Topology(ecosystemName: "My ecosystem", homes: homes)
         
         guard let setupPayload = MTRSetupPayload(payload: qrPayload) else {
             statusMessage = "Invalid QR code string..."
@@ -148,49 +148,49 @@ class ContentViewState {
             let device = MTRBaseDevice(nodeID: NSNumber(value: nodeID), controller: controller)
             let readGroup = DispatchGroup()
 
-            // --- ENDPOINT 1: OCUPACIÓN (Cluster 1030) ---
+            // --- ENDPOINT 1: OCCUPANCY (Cluster 1030) ---
             let occCluster = MTRBaseClusterOccupancySensing(device: device, endpointID: NSNumber(value: 1), queue: DispatchQueue.main)
             readGroup.enter()
             occCluster?.readAttributeOccupancy { value, readError in
                 if let readError = readError {
-                    print("⚠️ Falló lectura de Ocupación: \(readError.localizedDescription)")
+                    print("⚠️ Failed to read Occupancy: \(readError.localizedDescription)")
                 } else if let occValue = value {
-                    print("🚶‍♂️ ¡Ocupación leída!: \(occValue) (1=Working, 0=free)")
-                    self.occupancyValue = occValue.intValue == 1 ? "Working" : "Not working"
+                    print("🚶‍♂️ Occupancy read: \(occValue) (1=Working, 0=Free)")
+                    self.occupancyValue = occValue.intValue == 1 ? "Working" : "Free"
                 }
                 readGroup.leave()
             }
 
-            // --- ENDPOINT 2: TEMPERATURA (Cluster 1026) ---
+            // --- ENDPOINT 2: TEMPERATURE (Cluster 1026) ---
             let tempCluster = MTRBaseClusterTemperatureMeasurement(device: device, endpointID: NSNumber(value: 2), queue: DispatchQueue.main)
             readGroup.enter()
             tempCluster?.readAttributeMeasuredValue { value, readError in
                 if let readError = readError {
-                    print("⚠️ Falló lectura de Temperatura: \(readError.localizedDescription)")
+                    print("⚠️ Failed to read Temperature: \(readError.localizedDescription)")
                 } else if let tempValue = value {
                     let calcTemp = Double(truncating: tempValue) / 100.0
-                    print("🌡️ ¡Temperatura leída!: \(tempValue) (\(calcTemp) °C)")
+                    print("🌡️ Temperature read: \(tempValue) (\(calcTemp) °C)")
                     self.temperatureValue = String(format: "%.2f °C", calcTemp)
                 }
                 readGroup.leave()
             }
 
-            // --- ENDPOINT 3: HUMEDAD RELATIVA (Cluster 1029) ---
+            // --- ENDPOINT 3: RELATIVE HUMIDITY (Cluster 1029) ---
             let humCluster = MTRBaseClusterRelativeHumidityMeasurement(device: device, endpointID: NSNumber(value: 3), queue: DispatchQueue.main)
             readGroup.enter()
             humCluster?.readAttributeMeasuredValue { value, readError in
                 if let readError = readError {
-                    print("⚠️ Falló lectura de Humedad: \(readError.localizedDescription)")
+                    print("⚠️ Failed to read Humidity: \(readError.localizedDescription)")
                 } else if let humValue = value {
                     let calcHum = Double(truncating: humValue) / 100.0
-                    print("💧 ¡Humedad leída!: \(humValue) (\(calcHum) %)")
+                    print("💧 Humidity read: \(humValue) (\(calcHum) %)")
                     self.humidityValue = String(format: "%.1f %%", calcHum)
                 }
                 readGroup.leave()
             }
 
             readGroup.notify(queue: .main) {
-                print("✅ Consulta de sensores completada.")
+                print("✅ Sensor query completed.")
             }
             
         } catch {
@@ -199,9 +199,7 @@ class ContentViewState {
     }
 }
 
-import SwiftUI
-
-// MARK: - Tarjeta de Sensor Reutilizable (Adaptable a Modo Claro y Oscuro)
+// MARK: - Reusable Sensor Card Component (Adaptive to Light and Dark Mode)
 struct SensorCard: View {
     var icon: String
     var iconColor: Color
@@ -224,7 +222,7 @@ struct SensorCard: View {
             VStack(alignment: .trailing, spacing: 4) {
                 Text(value)
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.primary) // Cambia a blanco en modo oscuro, negro en claro
+                    .foregroundColor(.primary) // Dynamic text color for dark/light mode
                 Text(label)
                     .font(.system(size: 13, weight: .medium))
                     .foregroundColor(.secondary)
@@ -233,7 +231,7 @@ struct SensorCard: View {
         }
         .padding(20)
         .frame(height: 160)
-        .background(Color(uiColor: .secondarySystemGroupedBackground)) // Fondo adaptable para tarjetas
+        .background(Color(uiColor: .secondarySystemGroupedBackground)) // Adaptive background color
         .cornerRadius(24)
         .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
     }
@@ -244,7 +242,7 @@ struct ContentView: View {
     
     @State private var state = ContentViewState()
     
-    // Paleta de colores en Tonos Azules
+    // Blue Color Palette
     let brandBlue = Color.blue
     let darkBlueGradient = LinearGradient(
         gradient: Gradient(colors: [
@@ -256,7 +254,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Fondo adaptable al sistema (System Background)
+            // Adaptive System Background
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
@@ -317,7 +315,7 @@ struct ContentView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         Button(action: {
-                            // Acción secundaria
+                            // Secondary action
                         }) {
                             Image(systemName: "plus")
                                 .foregroundColor(.secondary)
