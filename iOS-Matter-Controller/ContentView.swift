@@ -199,7 +199,9 @@ class ContentViewState {
     }
 }
 
-// MARK: - Reusable Card Component
+import SwiftUI
+
+// MARK: - Tarjeta de Sensor Reutilizable (Adaptable a Modo Claro y Oscuro)
 struct SensorCard: View {
     var icon: String
     var iconColor: Color
@@ -222,18 +224,18 @@ struct SensorCard: View {
             VStack(alignment: .trailing, spacing: 4) {
                 Text(value)
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.primary)
+                    .foregroundColor(.primary) // Cambia a blanco en modo oscuro, negro en claro
                 Text(label)
                     .font(.system(size: 13, weight: .medium))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .padding(20)
         .frame(height: 160)
-        .background(Color.white)
+        .background(Color(uiColor: .secondarySystemGroupedBackground)) // Fondo adaptable para tarjetas
         .cornerRadius(24)
-        .shadow(color: Color.black.opacity(0.04), radius: 10, x: 0, y: 5)
+        .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
     }
 }
 
@@ -242,34 +244,39 @@ struct ContentView: View {
     
     @State private var state = ContentViewState()
     
-    // Theme Colors based on screenshot
-    let bgColor = Color(red: 0.95, green: 0.96, blue: 0.98)
-    let brandGreen = Color(red: 0.11, green: 0.72, blue: 0.54)
-    let darkGreenGradient = LinearGradient(
-        gradient: Gradient(colors: [Color(red: 0.08, green: 0.52, blue: 0.35), Color(red: 0.12, green: 0.65, blue: 0.46)]),
-        startPoint: .leading, endPoint: .trailing
+    // Paleta de colores en Tonos Azules
+    let brandBlue = Color.blue
+    let darkBlueGradient = LinearGradient(
+        gradient: Gradient(colors: [
+            Color(red: 0.08, green: 0.35, blue: 0.85),
+            Color(red: 0.05, green: 0.20, blue: 0.55)
+        ]),
+        startPoint: .topLeading, endPoint: .bottomTrailing
     )
     
     var body: some View {
         ZStack {
-            bgColor.edgesIgnoringSafeArea(.all)
+            // Fondo adaptable al sistema (System Background)
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
             
             VStack(spacing: 24) {
                 // Header
                 HStack {
                     Text("Krasamo: Custom matter controller")
-                        .font(.system(size: 32, weight: .heavy, design: .rounded))
-                        .foregroundColor(.black)
+                        .font(.system(size: 22, weight: .heavy, design: .rounded))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                     Spacer()
                     Button(action: {
-                        // Using the menu to trigger pairing instead of a generic list
                         Task { await state.startMatterParing() }
                     }) {
                         Image(systemName: "line.3.horizontal")
                             .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                             .padding(14)
-                            .background(Color.white)
+                            .background(Color(uiColor: .secondarySystemGroupedBackground))
                             .cornerRadius(14)
                             .shadow(color: Color.black.opacity(0.03), radius: 5)
                     }
@@ -302,7 +309,7 @@ struct ContentView: View {
                 .padding(24)
                 .background(
                     RoundedRectangle(cornerRadius: 24)
-                        .fill(darkGreenGradient)
+                        .fill(darkBlueGradient)
                 )
                 .padding(.horizontal, 24)
                 
@@ -310,12 +317,12 @@ struct ContentView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         Button(action: {
-                            // Empty action for UI placeholder
+                            // Acción secundaria
                         }) {
                             Image(systemName: "plus")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                                 .padding(16)
-                                .background(Color.white)
+                                .background(Color(uiColor: .secondarySystemGroupedBackground))
                                 .cornerRadius(16)
                                 .shadow(color: Color.black.opacity(0.02), radius: 5)
                         }
@@ -325,15 +332,15 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 16)
-                            .background(brandGreen)
+                            .background(brandBlue)
                             .cornerRadius(16)
                         
                         Text("Bedroom")
                             .font(.system(size: 15, weight: .bold))
-                            .foregroundColor(.black.opacity(0.7))
+                            .foregroundColor(.primary)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 16)
-                            .background(Color.white)
+                            .background(Color(uiColor: .secondarySystemGroupedBackground))
                             .cornerRadius(16)
                             .shadow(color: Color.black.opacity(0.02), radius: 5)
                     }
@@ -344,15 +351,16 @@ struct ContentView: View {
                 HStack {
                     Text("Multisensor")
                         .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.primary)
                     Spacer()
                     Image(systemName: "chevron.down")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondary)
                         .padding(.trailing, 16)
                     Button(action: {}) {
                         Image(systemName: "plus")
-                            .foregroundColor(.gray)
+                            .foregroundColor(.secondary)
                             .padding(12)
-                            .background(Color.white)
+                            .background(Color(uiColor: .secondarySystemGroupedBackground))
                             .cornerRadius(12)
                             .shadow(color: Color.black.opacity(0.02), radius: 5)
                     }
@@ -361,10 +369,10 @@ struct ContentView: View {
                 
                 // Sensor Grid
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                    SensorCard(icon: "thermometer", iconColor: Color.pink, value: state.temperatureValue, label: "Temperature")
+                    SensorCard(icon: "thermometer", iconColor: Color.indigo, value: state.temperatureValue, label: "Temperature")
                     SensorCard(icon: "drop.fill", iconColor: Color.blue, value: state.humidityValue, label: "Moisture")
-                    SensorCard(icon: "person.fill", iconColor: Color.orange, value: state.occupancyValue, label: "Occupancy")
-                    SensorCard(icon: "network", iconColor: brandGreen, value: state.deviceAvailable ? "Online" : "Ready", label: "Status")
+                    SensorCard(icon: "person.fill", iconColor: Color.teal, value: state.occupancyValue, label: "Occupancy")
+                    SensorCard(icon: "network", iconColor: brandBlue, value: state.deviceAvailable ? "Online" : "Ready", label: "Status")
                 }
                 .padding(.horizontal, 24)
                 
@@ -383,9 +391,9 @@ struct ContentView: View {
                             .font(.system(size: 24, weight: .medium))
                             .foregroundColor(.white)
                             .frame(width: 64, height: 64)
-                            .background(brandGreen)
+                            .background(brandBlue)
                             .clipShape(Circle())
-                            .shadow(color: brandGreen.opacity(0.4), radius: 15, x: 0, y: 8)
+                            .shadow(color: brandBlue.opacity(0.35), radius: 12, x: 0, y: 6)
                     }
                     .padding(.trailing, 24)
                     .padding(.bottom, 30)
